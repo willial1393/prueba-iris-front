@@ -9,7 +9,7 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
 })
 export class UserService extends IService<User> {
 
-  private readonly dataSource = new BehaviorSubject<User>(new User());
+  private readonly dataSource = new BehaviorSubject<User | undefined>(undefined);
   $user = this.dataSource.asObservable();
 
   constructor(angularFirestore: AngularFirestore) {

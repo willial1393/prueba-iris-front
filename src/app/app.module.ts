@@ -12,6 +12,7 @@ import {getFirestore, provideFirestore} from '@angular/fire/firestore';
 import {Page404Component} from './core/pages/page404/page404.component';
 import {ToastrModule} from "ngx-toastr";
 import {FIREBASE_OPTIONS} from "@angular/fire/compat";
+import {NgxLoadingModule} from "ngx-loading";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {FIREBASE_OPTIONS} from "@angular/fire/compat";
     ToastrModule.forRoot(),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    NgxLoadingModule.forRoot({}),
   ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase}

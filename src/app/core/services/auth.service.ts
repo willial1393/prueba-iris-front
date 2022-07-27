@@ -4,7 +4,7 @@ import firebase from 'firebase/compat/app';
 import {ToastrService} from "ngx-toastr";
 import {UserService} from "./user.service";
 import {User} from "../../shared/models/user";
-import {firstValueFrom} from "rxjs";
+import {firstValueFrom, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,10 @@ export class AuthService {
     private toast: ToastrService,
     private userService: UserService
   ) {
+  }
+
+  currentUser(): Observable<firebase.User | null> {
+    return this.auth.user;
   }
 
   async isLogged(): Promise<boolean> {
@@ -132,5 +136,9 @@ export class AuthService {
           throw e;
       }
     }
+  }
+
+  signOut(): Promise<void> {
+    return this.auth.signOut();
   }
 }

@@ -1,0 +1,8 @@
+.list {
+  width: fit-content;
+  margin: 20% auto auto;
+}
+
+mat-form-field {
+  width: 100%;
+}

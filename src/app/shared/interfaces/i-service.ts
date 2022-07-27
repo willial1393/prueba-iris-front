@@ -32,6 +32,10 @@ export class IService<Model extends IModel> {
     });
   }
 
+  deleteById(id: string): Promise<void> {
+    return this.angularFirestore.collection(this.collection).doc(id).delete();
+  }
+
   getChanges(query?: (ref: CollectionReference) => Query): Observable<Model[]> {
     if (query) {
       return this.angularFirestore.collection(this.collection, query).valueChanges() as Observable<Model[]>;
