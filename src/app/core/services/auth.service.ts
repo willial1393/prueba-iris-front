@@ -19,7 +19,7 @@ export class AuthService {
   }
 
   currentUser(): Observable<firebase.User | null> {
-    return this.auth.user;
+    return this.auth.authState;
   }
 
   async isLogged(): Promise<boolean> {
@@ -46,21 +46,18 @@ export class AuthService {
     }
   }
 
-  async signUpWithEmailAndPassword(options: { firstName?: string, lastName?: string, email: string, password: string }): Promise<void> {
+  async signUpWithEmailAndPassword(email: string, password: string): Promise<void> {
     try {
-      const userCredential = await this.auth.createUserWithEmailAndPassword(options.email, options.password);
+      const userCredential = await this.auth.createUserWithEmailAndPassword(email, password);
       await this.createUserFirestore(userCredential);
     } catch (e: any) {
       switch (e.code) {
         case 'auth/email-already-in-use':
-          this.toast.error('Ya existe una cuenta registrada con este correo', '');
-          break;
+          throw 'Ya existe una cuenta registrada con este correo';
         case 'auth/invalid-email':
-          this.toast.error('Correo no valido');
-          break;
+          throw 'Correo no valido';
         case 'auth/weak-password':
-          this.toast.error('Contraseña insegura');
-          break;
+          throw 'Contraseña insegura';
         default:
           throw e;
       }
@@ -107,7 +104,7 @@ export class AuthService {
       const user = new User();
       user.email = userCredential.user?.email ?? undefined;
       user.fullName = user.email?.split('@')[0];
-      user.picture = userCredential.user?.photoURL ?? undefined;
+      user.picture = userCredential.user?.photoURL ?? '';
       try {
         await this.userService.insert(user, userCredential.user!.uid);
       } catch (e) {
@@ -127,11 +124,9 @@ export class AuthService {
     } catch (e: any) {
       switch (e.code) {
         case 'auth/invalid-email':
-          this.toast.error('Correo no valido');
-          break;
+          throw 'Correo no valido';
         case 'auth/user-not-found':
-          this.toast.error('No existe una cuenta con este correo');
-          break;
+          throw 'No existe una cuenta con este correo';
         default:
           throw e;
       }

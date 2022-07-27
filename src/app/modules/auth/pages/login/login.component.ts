@@ -34,7 +34,7 @@ export class LoginComponent {
     }).finally(() => this.loading = false)
   }
 
-  google() {
+  signInGoogle(): void {
     this.loading = true;
     this.authService.signInProvider("google.com").then(() => {
       this.toast.success('Bienvenido');
@@ -42,5 +42,22 @@ export class LoginComponent {
     }).catch(reason => {
       this.toast.error(reason);
     }).finally(() => this.loading = false)
+  }
+
+  goToRegister() {
+    this.router.navigate([RouteNames.AUTH, RouteNames.AUTH_REGISTER]);
+  }
+
+  recoveryPassword() {
+    const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    if (this.email.match(validRegex)) {
+      this.loading = true;
+      this.authService.recoverPassword(this.email).catch(reason => {
+        this.toast.error(reason);
+      }).finally(() => this.loading = false);
+    } else {
+      this.toast.error('Ingresa un email valido');
+    }
   }
 }

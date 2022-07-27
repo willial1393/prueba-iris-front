@@ -1,6 +1,6 @@
 <div class="text-center">
   <mat-card class="login">
-    <h1>Prueba Iris</h1>
+    <h1>Prueba Iris - Login</h1>
     <form ngNativeValidate (ngSubmit)="submit()">
       <mat-form-field appearance="fill">
         <mat-label>Correo electrónico</mat-label>
@@ -12,10 +12,17 @@
         <input type="password" matInput required [(ngModel)]="password" name="password">
       </mat-form-field>
       <br>
-      <button mat-raised-button [disabled]="loading">Ingresar</button>
+      <u (click)="recoveryPassword()">Recuperar mi contraseña</u>
+      <br>
+      <br>
+      <button mat-raised-button>Ingresar</button>
     </form>
     <br><br>
-    <button mat-raised-button [disabled]="loading" (click)="google()">Ingresa con google</button>
+    <button mat-raised-button (click)="signInGoogle()">Ingresa con google</button>
+    <br><br>
+    <button mat-raised-button (click)="goToRegister()">Crear una cuenta</button>
   </mat-card>
 </div>
+
+<app-loading [loading]="loading"></app-loading>
 

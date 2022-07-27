@@ -1,1 +1,22 @@
-<p>register works!</p>
+<div class="text-center">
+  <mat-card class="register">
+    <h1>Prueba Iris - Registro</h1>
+    <form ngNativeValidate (ngSubmit)="submit()">
+      <mat-form-field appearance="fill">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput type="email" required [(ngModel)]="email" name="email">
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Contraseña</mat-label>
+        <input type="password" matInput required [(ngModel)]="password" name="password">
+      </mat-form-field>
+      <br>
+      <button mat-raised-button>Registrarme</button>
+    </form>
+    <br><br>
+    <button mat-raised-button (click)="signUpGoogle()">Ingresa con google</button>
+  </mat-card>
+</div>
+
+<app-loading [loading]="loading"></app-loading>
