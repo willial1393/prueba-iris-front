@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "prueba-iris-859ff": {
+      "hosting": {
+        "prueba": [
+          "prueba-iris-859ff"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "prueba-iris-859ff"
+  }
+}
